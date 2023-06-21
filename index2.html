@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Tienda de Ropa</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto&display=swap">
+  <style>
+    /* Estilos generales */
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #03265b;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+
+    nav {
+      margin-bottom: 20px;
+    }
+
+    nav ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+
+    nav ul li {
+      display: inline-block;
+      margin-right: 10px;
+    }
+
+    nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      padding: 10px;
+    }
+
+    section {
+      margin: 20px;
+    }
+
+    h2 {
+      color: #333;
+    }
+
+    footer {
+      background-color: #03265b;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+
+    /* Estilos para la sección de la tienda */
+    #tienda {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .producto {
+      width: 200px;
+      padding: 10px;
+      margin: 10px;
+      border: 1px solid #ccc;
+      text-align: center;
+    }
+    .producto img {
+    width: 150px; /* Ajusta el ancho deseado */
+    height: 150px; /* Ajusta la altura deseada */
+    }
+
+    /* Estilos para la sección del portal de usuario */
+    #usuario {
+      text-align: center;
+    }
+
+    /* Estilos para la sección del carrito de compra */
+    #carrito {
+      text-align: center;
+    }
+
+    /* Estilos para los botones */
+    .boton {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #333;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .boton:hover {
+      background-color: #555;
+    }
+
+    /* Estilos para el carrito de compra */
+    .carrito-lista {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .carrito-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .carrito-item img {
+      width: 50px;
+      height: 50px;
+      object-fit: cover;
+      margin-right: 10px;
+    }
+
+    .carrito-total {
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    /* Estilos para los productos en el carrito */
+    .producto-carrito {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .imagen-carrito {
+      width: 50px;
+      height: 50px;
+      object-fit: cover;
+      margin-right: 10px;
+    }
+
+    .info-carrito {
+      flex-grow: 1;
+    }
+
+    .info-carrito h3 {
+      margin: 0;
+    }
+
+    .eliminar-carrito {
+      padding: 5px 10px;
+      background-color: #555;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .eliminar-carrito:hover {
+      background-color: #333;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Tienda de ropa</h1>
+    <nav>
+    </nav>
+  </header>
+
+  <section id="tienda">
+    <h2>Tienda</h2>
+    <div class="producto">
+      <img src="img/camiseta.jpg" alt="Camiseta">
+      <h3>Camiseta</h3>
+      <p>Precio: $19.99</p>
+      <button class="agregar-carrito" data-nombre="Camiseta" data-precio="19.99" data-imagen="img/camiseta.jpg">Agregar al carrito</button>
+    </div>
+    <div class="producto">
+      <img src="img/chaqueta.jpg" alt="Chaqueta">
+      <h3>Chaqueta</h3>
+      <p>Precio: $49.99</p>
+      <button class="agregar-carrito" data-nombre="Chaqueta" data-precio="49.99" data-imagen="img/chaqueta.jpg">Agregar al carrito</button>
+    </div>
+    <div class="producto">
+      <img src="img/pantalon.jpg" alt="Pantalon">
+      <h3>Pantalón</h3>
+      <p>Precio: $29.99</p>
+      <button class="agregar-carrito" data-nombre="Pantalon" data-precio="29.99" data-imagen="img/pantalon.jpg">Agregar al carrito</button>
+    </div>
+  </section>
+
+  <section id="usuario">
+    <h2>Portal de Usuario</h2>
+    <button id="inicio-sesion">Iniciar Sesión</button>
+  </section>
+
+  <section id="carrito">
+    <h2>Carrito de Compra</h2>
+    <ul class="carrito-lista">
+      <!-- Aquí se añadirán los productos dinámicamente -->
+    </ul>
+    <p class="carrito-total">Total: $0.00</p>
+    <a class="boton" href="#">Realizar Compra</a>
+  </section>
+
+  <footer>
+    <p>Derechos de Autor &copy; 2023 Tienda de Ropa</p>
+  </footer>
+  <script>
+// Obtener elementos del DOM
+const botonesAgregar = document.querySelectorAll('.agregar-carrito');
+const carritoContenedor = document.querySelector('#carrito .carrito-lista');
+
+// Manejar el evento de clic en los botones de "Agregar al carrito"
+botonesAgregar.forEach((boton) => {
+  boton.addEventListener('click', () => {
+    const nombre = boton.dataset.nombre;
+    const precio = parseFloat(boton.dataset.precio);
+    const imagen = boton.dataset.imagen;
+
+    // Crear el elemento del producto en el carrito
+    const productoCarrito = document.createElement('div');
+    productoCarrito.classList.add('producto-carrito');
+    productoCarrito.innerHTML = `
+      <img src="${imagen}" alt="${nombre}" class="imagen-carrito">
+      <div class="info-carrito">
+        <h3>${nombre}</h3>
+        <p>Precio: $${precio.toFixed(2)}</p>
+      </div>
+      <button class="eliminar-carrito">Eliminar</button>
+    `;
+
+    // Agregar el producto al carrito
+    carritoContenedor.appendChild(productoCarrito);
+
+    // Actualizar el total del carrito
+    actualizarTotalCarrito();
+
+    // Manejar el evento de clic en el botón "Eliminar" del producto en el carrito
+    const botonEliminar = productoCarrito.querySelector('.eliminar-carrito');
+    botonEliminar.addEventListener('click', () => {
+      productoCarrito.remove();
+      actualizarTotalCarrito();
+    });
+  });
+});
+
+// Función para actualizar el total del carrito
+function actualizarTotalCarrito() {
+  const productosCarrito = document.querySelectorAll('.producto-carrito');
+
+  let total = 0;
+  productosCarrito.forEach((producto) => {
+    const precioProducto = parseFloat(producto.querySelector('.info-carrito p').innerText.replace('Precio: $', ''));
+    total += precioProducto;
+  });
+
+  const totalCarrito = document.querySelector('.carrito-total');
+  totalCarrito.innerText = `Total: $${total.toFixed(2)}`;
+}
+
+
+    // Evento de clic para el botón de inicio de sesión
+    var inicioSesionBtn = document.getElementById('inicio-sesion');
+        inicioSesionBtn.addEventListener('click', function() {
+        // Redireccionar a la página de inicio de sesión
+        window.location.href = 'https://www.ejemplo.com/login';
+    });
+
+</script>
+</body>
+</html>
