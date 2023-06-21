@@ -261,12 +261,35 @@ function actualizarTotalCarrito() {
 }
 
 
-    // Evento de clic para el botón de inicio de sesión
-    var inicioSesionBtn = document.getElementById('inicio-sesion');
-        inicioSesionBtn.addEventListener('click', function() {
-        // Redireccionar a la página de inicio de sesión
-        window.location.href = 'https://www.ejemplo.com/login';
-    });
+  // Evento de clic para el botón de inicio de sesión
+  const enlaceInicioSesion = document.getElementById('inicio-sesion');
+  enlaceInicioSesion.addEventListener('click', (event) => {
+    event.preventDefault(); // Evitar el comportamiento predeterminado del enlace
+
+    const urlDestino = 'https://www.ejemplo.com/login'; // URL de destino
+
+    // Realizar la validación de la URL antes de redireccionar
+    if (esURLSegura(urlDestino)) {
+      window.location.href = urlDestino; // Redireccionar a la URL de destino
+    } else {
+      mostrarMensajeNoSeguro();
+    }
+  });
+
+  function esURLSegura(url) {
+    // Lista de paths permitidos
+    const pathsPermitidos = [
+      '/login',
+      // Agrega aquí los paths permitidos adicionales
+    ];
+    // Verificar si el path de la URL es relativo
+    return !url.startsWith('http://') && !url.startsWith('https://');
+  }
+
+  function mostrarMensajeNoSeguro() {
+  // Mostrar mensaje de URL no segura en la pantalla
+  alert('URL no segura. No se puede redireccionar.');
+}
 
 </script>
 </body>
