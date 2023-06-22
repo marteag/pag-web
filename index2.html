@@ -261,32 +261,33 @@ function actualizarTotalCarrito() {
 }
 
 
-  // Evento de clic para el botón de inicio de sesión
-  const enlaceInicioSesion = document.getElementById('inicio-sesion');
-  enlaceInicioSesion.addEventListener('click', (event) => {
-    event.preventDefault(); // Evitar el comportamiento predeterminado del enlace
+// Evento de clic para el botón de inicio de sesión
+const enlaceInicioSesion = document.getElementById('inicio-sesion');
+enlaceInicioSesion.addEventListener('click', (event) => {
+  event.preventDefault(); // Evitar el comportamiento predeterminado del enlace
 
-    const urlDestino = 'https://www.ejemplo.com/login'; // URL de destino
+  const urlDestino = 'https://www.ejemplo.com/login'; // URL de destino
 
-    // Realizar la validación de la URL antes de redireccionar
-    if (esURLSegura(urlDestino)) {
-      window.location.href = urlDestino; // Redireccionar a la URL de destino
-    } else {
-      mostrarMensajeNoSeguro();
-    }
-  });
-
-  function esURLSegura(url) {
-    // Lista de paths permitidos
-    const pathsPermitidos = [
-      '/login',
-      // Agrega aquí los paths permitidos adicionales
-    ];
-    // Verificar si el path de la URL es relativo
-    return !url.startsWith('http://') && !url.startsWith('https://');
+  // Realizar la validación de la URL antes de redireccionar
+  if (esURLSegura(urlDestino)) {
+    window.location.href = urlDestino; // Redireccionar a la URL de destino
+  } else {
+    mostrarMensajeNoSeguro();
   }
+});
 
-  function mostrarMensajeNoSeguro() {
+function esURLSegura(url) {
+  const urlSegura = 'login.html'; // URL permitida
+
+  // Verificar si la URL es segura
+  if (url === urlSegura || url.startsWith('/') || url.startsWith('./') || url.startsWith('../')) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function mostrarMensajeNoSeguro() {
   // Mostrar mensaje de URL no segura en la pantalla
   alert('URL no segura. No se puede redireccionar.');
 }
